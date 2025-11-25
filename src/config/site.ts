@@ -5,11 +5,11 @@ export const siteConfig = {
   resumeUrl:
     "https://drive.google.com/file/d/1YKWtnhnoOp24T9zDykEznAZgajcyTdL8/view",
   social: {
-    github: "#", // TODO: replace with your GitHub URL
-    linkedin: "#", // TODO: replace with your LinkedIn URL
+    github: "https://github.com/Wuffle1125", // TODO: replace with your GitHub URL
+    linkedin: "https://www.linkedin.com/in/bhumika-nautiyal-13294a1b7/", // TODO: replace with your LinkedIn URL
     twitter: "#",
   },
   contact: {
-    toEmail: process.env.RESEND_TO || "",
+    toEmail: process.env.CONTACT_TO || process.env.RESEND_TO || "",
   },
 };
