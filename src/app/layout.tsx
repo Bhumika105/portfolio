@@ -7,6 +7,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import Script from "next/script";
 import { ProfileViews } from "@/components/site/ProfileViews";
+import { ScrollProvider } from "@/contexts/scroll-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,19 +53,25 @@ export default function RootLayout({
             try {
               const ls = localStorage.getItem('theme');
               const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-              const shouldDark = ls ? ls === 'dark' : prefersDark || true; // default dark
+              const shouldDark = ls ? ls === 'dark' : prefersDark || true;
               document.documentElement.classList.toggle('dark', shouldDark);
             } catch {}
           `}
         </Script>
-        <Header />
-        <div className="mx-auto max-w-6xl px-4">
-          {children}
-        </div>
-        <ProfileViews />
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
+        <ScrollProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">
+              <div className="mx-auto max-w-6xl px-4">
+                {children}
+              </div>
+            </main>
+            <ProfileViews />
+            <Footer />
+          </div>
+          <Analytics />
+          <SpeedInsights />
+        </ScrollProvider>
       </body>
     </html>
   );

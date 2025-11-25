@@ -1,49 +1,62 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ArrowRight, Mail, Github, Linkedin, Twitter, Code, Cpu, Database, Globe, Smartphone } from "lucide-react";
+
+// Import section components
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { SkillsSection } from "@/components/sections/SkillsSection";
+import { ContactSection } from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
-    <section className="py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-6 flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">Senior Engineer</Badge>
-          <Badge>Full Stack</Badge>
-          <Badge>Blockchain</Badge>
-          <Badge>AI/ML</Badge>
+    <div>
+      {/* Hero Section */}
+      <section 
+        id="home" 
+        className="min-h-screen flex items-center justify-center relative"
+      >
+        <div className="container mx-auto px-4 text-center">
+          <div className="relative w-48 h-48 mx-auto mb-8">
+            <Image
+              src="/avatar.jpg"
+              alt="Bhumika Nautiyal"
+              fill
+              className="rounded-full object-cover border-4 border-primary/20"
+              priority
+            />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">Bhumika Nautiyal</h1>
+          <h2 className="text-xl md:text-2xl text-muted-foreground mb-8">
+            Full Stack, Blockchain & AI Engineer
+          </h2>
+          <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-8">
+            I build modern web applications with cutting-edge technologies and 
+            deliver exceptional user experiences.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button size="lg" className="gap-2" asChild>
+              <a href="#contact">
+                Get in Touch <Mail className="h-4 w-4" />
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <a href="#projects">
+                View My Work <ArrowRight className="h-4 w-4" />
+              </a>
+            </Button>
+          </div>
         </div>
-        <div className="mb-6">
-          <Image
-            src="/avatar.jpg"
-            alt="Bhumika Nautiyal avatar"
-            width={112}
-            height={112}
-            className="h-28 w-28 rounded-full ring-2 ring-primary/50 object-cover object-[50%_25%]"
-            priority
-          />
-        </div>
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Bhumika Nautiyal
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          Full Stack, Blockchain & AI Engineer. I build modern web apps with React/Next.js, Node.js, and Web3, and deliver AI-powered experiences.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <Button asChild>
-            <a
-              href="https://drive.google.com/file/d/1YKWtnhnoOp24T9zDykEznAZgajcyTdL8/view"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Resume
-            </a>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/contact">Contact Me</Link>
-          </Button>
-        </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Other Sections */}
+      <AboutSection />
+      <ExperienceSection />
+      <ProjectsSection />
+      <SkillsSection />
+      <ContactSection />
+    </div>
   );
 }

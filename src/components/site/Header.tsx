@@ -1,59 +1,63 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useScroll } from "@/contexts/scroll-context";
 import { cn } from "@/lib/utils";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
+import Link from "next/link";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/skills", label: "Skills" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+type NavItem = {
+  id: string;
+  label: string;
+};
+
+const navItems: NavItem[] = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ];
 
 export function Header() {
-  const pathname = usePathname();
+  const { activeSection, scrollToSection } = useScroll();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="font-semibold tracking-tight">
-          Bhumika Nautiyal
-        </Link>
-        <div className="flex items-center gap-3">
-          <nav className="hidden md:block">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {links.map((l) => (
-                  <NavigationMenuItem key={l.href}>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href={l.href}
-                        className={cn(
-                          "px-3 py-2 text-sm hover:underline",
-                          pathname === l.href ? "text-primary" : "text-muted-foreground"
-                        )}
-                      >
-                        {l.label}
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
-          </nav>
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <button 
+          onClick={() => scrollToSection('home')}
+          className="flex items-center gap-2 font-semibold tracking-tight hover:text-primary transition-colors"
+        >
+          <div className="relative h-8 w-8 rounded-full overflow-hidden">
+            <Image
+              src="/avatar.jpg"
+              alt="Bhumika Nautiyal"
+              fill
+              className="object-cover object-[50%_25%]"
+            />
+          </div>
+          <span className="hidden sm:inline">Bhumika N.</span>
+        </button>
+        
+        <nav className="hidden md:flex items-center space-x-1">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className={cn(
+                "px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                activeSection === item.id ? "text-primary" : "text-muted-foreground"
+              )}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+        
+        <div className="flex items-center">
           <ThemeToggle />
-          <Link href="/about" aria-label="About Bhumika" className="ml-1">
-            <Avatar>
-              <AvatarImage src="/avatar.jpg" alt="Bhumika Nautiyal avatar" className="object-cover object-[50%_25%]" />
-              <AvatarFallback>BN</AvatarFallback>
-            </Avatar>
-          </Link>
         </div>
       </div>
     </header>
