@@ -48,9 +48,10 @@ export function ContactForm() {
       const templateParams = {
         from_name: values.name || 'Anonymous',
         from_email: values.email,
+        reply_to: values.email,
         message: values.message,
         date: new Date().toLocaleString(),
-        to_email: 'nautiyalb68@gmail.com, densteph1771@gmail.com' // Add this line
+        // to_email: 'nautiyalb68@gmail.com, densteph1771@gmail.com' // Add this line
       };
 
       await emailjs.send(
